@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class ChatService {
 	connection: any = new signalR.HubConnectionBuilder()
 		.withUrl('http://localhost:5264/chat')
+		// .withUrl('http://192.168.180.9:5264/chat')
 		.configureLogging(signalR.LogLevel.Information)
 		.build();
 
@@ -39,9 +40,12 @@ export class ChatService {
 	}
 
 	async start() {
+		console.log('Init conn')
+
 		try {
 			await this.connection.start();
 		} catch (err) {
+			console.log('Conexión: ')
 			console.error(err);
 			setTimeout(() => this.start(), 3000);
 		}

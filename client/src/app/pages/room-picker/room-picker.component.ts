@@ -33,9 +33,6 @@ export class RoomPickerComponent {
 		localStorage.setItem('nombre', this.nombre);
 
 		this.chatService.clearMessages();
-		this.chatService.joinRoom(this.nombre, this.selectedRoom)
-			.then(() => {
-				this.router.navigate(['/chat', this.selectedRoom]);
-			})
+		this.router.navigate(['/chat', this.selectedRoom]);
 	}
 }

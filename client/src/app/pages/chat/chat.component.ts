@@ -29,15 +29,23 @@ export class ChatComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.joinRoom();
+
 		this.chatService.messages$.subscribe((res) => {
 			this.messages = res;
-			console.log(this.messages);
 		});
 
 		this.chatService.connectedUsers$.subscribe((res) => {
-			console.log(res);
 			this.users = res;
 		});
+	}
+
+	async joinRoom() {
+		try {
+			await this.chatService.joinRoom(this.user, this.roomId)
+		} catch {
+			setTimeout(() => this.joinRoom(), 1000)
+		}
 	}
 
 	sendMessage() {
