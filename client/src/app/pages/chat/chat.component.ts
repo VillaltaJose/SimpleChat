@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-chat',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class ChatComponent {
 	users = [1, 2, 3, 4, 5];
+
+	roomId: string;
+
+	constructor(
+		private _activatedRoute: ActivatedRoute,
+	) {
+		this.roomId = this._activatedRoute.snapshot.paramMap.get('roomId') ?? '';
+	}
 }

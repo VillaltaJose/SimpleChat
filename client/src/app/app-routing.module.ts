@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 	{ path: 'rooms', loadChildren: () => import('./pages/room-picker/room-picker.module').then(m => m.RoomPickerModule) },
-	{ path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule) },
+	{ path: 'chat/:roomId', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule) },
 	{ path: '', redirectTo: 'rooms', pathMatch: 'full' },
 ];
 

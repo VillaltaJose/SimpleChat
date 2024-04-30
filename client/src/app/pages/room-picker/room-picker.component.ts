@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-room-picker',
@@ -30,7 +31,11 @@ export class RoomPickerComponent {
 	];
 
 	selectedRoom: string | null = null;
-	nombre: string | null = null;
+	nombre: string | null = localStorage.getItem('nombre') ?? null;
+
+	constructor(
+		private router: Router,
+	) {}
 
 	ingresarSala() {
 		if (!this.selectedRoom) {
@@ -43,6 +48,7 @@ export class RoomPickerComponent {
 			return;
 		}
 
-
+		this.router.navigate(['/chat', this.selectedRoom]);
+		localStorage.setItem('nombre', this.nombre);
 	}
 }
