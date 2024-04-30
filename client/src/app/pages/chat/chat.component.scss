@@ -69,6 +69,68 @@ $users-width: 24rem;
 			overflow: auto;
 			padding: 2rem;
 			overflow: auto;
+
+			p {
+				display: block;
+				font-size: 1.5rem;
+			}
+
+			.anounce {
+				width: 100%;
+				margin-bottom: 1.5rem;
+				border-radius: 0.5rem;
+				border: 1px solid #cecece;
+				background: #f5f8fc;
+				padding: 1rem 0.5rem;
+
+				p {
+					text-align: center;
+					color: #18335f;
+				}
+			}
+
+			.message {
+				display: block;
+				width: 100%;
+				margin-bottom: 1.5rem;
+
+				.content {
+					max-width: 85%;
+					display: flex;
+					flex-wrap: nowrap;
+					gap: 1rem;
+					align-items: start;
+
+					img {
+						width: 3rem;
+						border-radius: 99999px;
+						border: 2px solid #18335f;
+					}
+
+					p {
+						padding: 0.6rem 1rem;
+						border-radius: 0.4rem;
+					}
+				}
+
+				.message-me {
+					p {
+						background: #18335f;
+						color: #FFF;
+					}
+				}
+
+				.message-other {
+					p {
+						background: #dde6f5;
+						color: #18335f;
+					}
+				}
+
+				.content.message-me {
+					justify-content: end;
+				}
+			}
 		}
 
 		.textbox-container {

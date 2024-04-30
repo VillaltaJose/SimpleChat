@@ -5,7 +5,7 @@
 			<ng-container *ngFor="let u of users">
 				<div class="user">
 					<img [src]="'https://api.dicebear.com/8.x/thumbs/svg?seed=' + u">
-					<p>User {{ u }}</p>
+					<p>{{ u }}</p>
 				</div>
 			</ng-container>
 		</div>
@@ -15,12 +15,38 @@
 				<h1>Chat: {{ roomId }}</h1>
 			</div>
 
-			<div class="messages-container"></div>
+			<div class="messages-container">
+				<ng-container *ngFor="let m of messages">
+					<ng-container *ngIf="m[0].user == null">
+						<div class="anounce">
+							<p>{{ m[0].content }}</p>
+						</div>
+					</ng-container>
+
+					<ng-container *ngIf="m[0].user && m[0].user != user">
+						<div class="message">
+							<div class="content message-other">
+								<img [src]="'https://api.dicebear.com/8.x/thumbs/svg?seed=' + m[0].user">
+								<p>{{ m[0].content }}</p>
+							</div>
+						</div>
+					</ng-container>
+
+					<ng-container *ngIf="m[0].user && m[0].user == user">
+						<div class="message" style="display:flex; justify-content: end;">
+							<div class="content message-me">
+								<p>{{ m[0].content }}</p>
+								<img [src]="'https://api.dicebear.com/8.x/thumbs/svg?seed=' + m[0].user">
+							</div>
+						</div>
+					</ng-container>
+				</ng-container>
+			</div>
 
 			<div class="textbox-container">
-				<input type="text" placeholder="Mensaje...">
+				<input type="text" (keyup.enter)="sendMessage()" [(ngModel)]="message" placeholder="Mensaje...">
 
-				<button type="button">Enviar</button>
+				<button (click)="sendMessage()" type="button">Enviar</button>
 			</div>
 		</div>
 	</div>
