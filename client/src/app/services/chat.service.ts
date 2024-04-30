@@ -17,6 +17,8 @@ export class ChatService {
 	messages: any[] = [];
 	users: string[] = [];
 
+	selectedRoom: any = null;
+
 	constructor() {
 		this.start();
 		this.connection.on("ReceiveMessage", (data: any) => {
@@ -33,6 +35,10 @@ export class ChatService {
 		this.connection.onclose(async () => {
             console.log('Reintentando conexion');
             await this.start();
+
+			if (this.selectedRoom) {
+				this.joinRoom(this.selectedRoom.user, this.selectedRoom.room)
+			}
         });
 	}
 
@@ -48,12 +54,15 @@ export class ChatService {
 		try {
 			await this.connection.start();
 		} catch (err) {
-			console.error(err);
 			setTimeout(() => this.start(), 3000);
 		}
 	}
 
 	async joinRoom(user: string, room: string) {
+		this.selectedRoom = {
+			user,
+			room
+		}
 		return this.connection.invoke('JoinRoom', {user, room});
 	}
 
