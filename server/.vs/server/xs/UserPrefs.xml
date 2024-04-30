@@ -1,4 +1,31 @@
 ﻿<Properties StartupConfiguration="{8906F728-421C-43A9-8EAF-FCBE12E5277C}|https">
-  <MonoDevelop.Ide.ItemProperties.Server.API FirstBuild="True" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Server.API/Hub/ChatHub.cs">
+    <Files>
+      <File FileName="Server.API/Program.cs" Line="42" Column="26" />
+      <File FileName="Server.API/Hub/JoinRoom.cs" Line="24" Column="1" />
+      <File FileName="Server.API/Entities/UserRoomConnection.cs" Line="6" Column="28" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="server">
+            <Node name="Server.API">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Entities" expanded="True" />
+              <Node name="Hub">
+                <Node name="ChatHub.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Server.API PreferredExecutionTarget="/Applications/Firefox Developer Edition.app" FirstBuild="True" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
