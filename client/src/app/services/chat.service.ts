@@ -29,6 +29,11 @@ export class ChatService {
 			this.connectedUsers$.next(users);
 			this.users = users;
 		});
+
+		this.connection.onclose(async () => {
+            console.log('Reintentando conexion');
+            await this.start();
+        });
 	}
 
 	clearMessages() {
@@ -40,12 +45,9 @@ export class ChatService {
 	}
 
 	async start() {
-		console.log('Init conn')
-
 		try {
 			await this.connection.start();
 		} catch (err) {
-			console.log('Conexión: ')
 			console.error(err);
 			setTimeout(() => this.start(), 3000);
 		}
