@@ -19,7 +19,7 @@ namespace Server.API.Hub
 			await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Room!);
 			_connection[Context.ConnectionId] = userConnection;
 			await Clients.Group(userConnection.Room!)
-                .SendAsync("ReceiveMessage", new[] { new { Content = $"{userConnection.User} has joined the group" } } );
+                .SendAsync("ReceiveMessage", new[] { new { Content = $"{userConnection.User} se unió a la sala" } } );
 			await SendConnectedUser(userConnection.Room!);
 		}
 
@@ -45,7 +45,7 @@ namespace Server.API.Hub
             _connection.Remove(Context.ConnectionId);
 
             Clients.Group(userRoomConnection.Room!)
-                .SendAsync("ReceiveMessage", new[] { new { Content = $"{userRoomConnection.User} has left the group" } });
+                .SendAsync("ReceiveMessage", new[] { new { Content = $"{userRoomConnection.User} abandonó la sala" } });
 
             SendConnectedUser(userRoomConnection.Room!);
 			return base.OnDisconnectedAsync(exp);
