@@ -30,6 +30,14 @@ export class ChatService {
 		});
 	}
 
+	clearMessages() {
+		this.messages = [];
+		this.users = [];
+
+		this.messages$.next(this.messages);
+		this.connectedUsers$.next(this.messages);
+	}
+
 	async start() {
 		try {
 			await this.connection.start();

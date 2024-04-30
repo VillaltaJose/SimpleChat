@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TOPICS } from 'src/app/data/topics';
 import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class ChatComponent implements OnInit {
 	user: string;
 
 	roomId: string;
+	roomName: string;
 	messages: any[] = [];
 
 	message: string | null = null;
@@ -22,6 +24,8 @@ export class ChatComponent implements OnInit {
 	) {
 		this.roomId = this._activatedRoute.snapshot.paramMap.get('roomId') ?? '';
 		this.user = localStorage.getItem('nombre') ?? '';
+
+		this.roomName = TOPICS.find(t => t.id === this.roomId)?.name ?? '';
 	}
 
 	ngOnInit(): void {
