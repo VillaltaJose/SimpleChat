@@ -1,0 +1,19 @@
+<div class="main-page">
+
+	<div class="main-container">
+		<div class="content" style="max-width: 40rem;">
+			<h2>Salas disponibles</h2>
+
+			<ng-container *ngFor="let s of salas">
+				<div class="list-item" (click)="selectedRoom = s.id" [ngClass]="{'active': selectedRoom == s.id}">
+					<p>{{ s.name }}</p>
+				</div>
+			</ng-container>
+
+			<input type="text" placeholder="Ingresa tu nombre" [(ngModel)]="nombre">
+
+			<button type="button" (click)="ingresarSala()">Ingresar</button>
+		</div>
+	</div>
+
+</div>

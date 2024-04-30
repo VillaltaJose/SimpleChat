@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Inter', sans-serif;
+}
+
+html {
+	font-size: 10px;
+}
+
+.main-page {
+	width: 100%;
+	height: 100vh;
+	background: url('./assets/images/background.png') no-repeat center center/cover;
+}
+
+:root {
+	--primary: #0e72ff;
+}
