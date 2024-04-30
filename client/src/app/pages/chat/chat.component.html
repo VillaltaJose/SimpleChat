@@ -1,1 +1,28 @@
-<p>chat works!</p>
+<div class="main-page">
+
+	<div class="main-layout">
+		<div class="users-container">
+			<ng-container *ngFor="let u of users">
+				<div class="user">
+					<img [src]="'https://api.dicebear.com/8.x/thumbs/svg?seed=' + u">
+					<p>User {{ u }}</p>
+				</div>
+			</ng-container>
+		</div>
+
+		<div class="chat-container">
+			<div class="title-container">
+				<h1>Chat: {{ 'ID_SALA' }}</h1>
+			</div>
+
+			<div class="messages-container"></div>
+
+			<div class="textbox-container">
+				<input type="text" placeholder="Mensaje...">
+
+				<button type="button">Enviar</button>
+			</div>
+		</div>
+	</div>
+
+</div>
