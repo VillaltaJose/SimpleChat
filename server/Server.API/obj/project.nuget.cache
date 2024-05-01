@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "SxmhR9YlTfmWUL046J6g9i/SPDrU2q5gZ1LaaW+m8o1ziNm26G3oPZi2MSl9FCd/fYTtGyr+C9rXCZ0E91dnlA==",
+  "dgSpecHash": "mVB3rNM1iI4m8JePB6LS0Gcx5mFaHmxZOoUwlE6IdwKX1M7GbYUJSue/xnfLeqOv9nF0VcyEM/+F8SWmkg5UgQ==",
   "success": true,
   "projectFilePath": "/Users/josevillalta/dev/Git/Personal/SimpleChat/server/Server.API/Server.API.csproj",
   "expectedPackageFiles": [
@@ -39,6 +39,7 @@
     "/Users/josevillalta/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/newtonsoft.json/11.0.2/newtonsoft.json.11.0.2.nupkg.sha512",
+    "/Users/josevillalta/.nuget/packages/rabbitmq.client/6.8.1/rabbitmq.client.6.8.1.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
@@ -47,7 +48,7 @@
     "/Users/josevillalta/.nuget/packages/system.componentmodel.annotations/4.5.0/system.componentmodel.annotations.4.5.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/system.io/4.3.0/system.io.4.3.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/system.io.pipelines/4.5.2/system.io.pipelines.4.5.2.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/system.memory/4.5.1/system.memory.4.5.1.nupkg.sha512",
+    "/Users/josevillalta/.nuget/packages/system.memory/4.5.5/system.memory.4.5.5.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/system.net.websockets.websocketprotocol/4.5.1/system.net.websockets.websocketprotocol.4.5.1.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/system.reflection/4.3.0/system.reflection.4.3.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/system.reflection.emit/4.3.0/system.reflection.emit.4.3.0.nupkg.sha512",
@@ -58,18 +59,8 @@
     "/Users/josevillalta/.nuget/packages/system.security.principal.windows/4.5.0/system.security.principal.windows.4.5.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/system.text.encoding/4.3.0/system.text.encoding.4.3.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/system.text.encodings.web/4.5.0/system.text.encodings.web.4.5.0.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/system.threading.channels/4.5.0/system.threading.channels.4.5.0.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/microsoft.netcore.app.ref/7.0.15/microsoft.netcore.app.ref.7.0.15.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.15/microsoft.aspnetcore.app.ref.7.0.15.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.15/microsoft.netcore.app.host.osx-arm64.7.0.15.nupkg.sha512"
+    "/Users/josevillalta/.nuget/packages/system.threading.channels/7.0.0/system.threading.channels.7.0.0.nupkg.sha512",
+    "/Users/josevillalta/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: nodename nor servname provided, or not known (api.nuget.org:443)"
-    }
-  ]
+  "logs": []
 }
