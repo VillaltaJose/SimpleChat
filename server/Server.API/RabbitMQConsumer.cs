@@ -19,15 +19,15 @@ namespace Server.API
         {
             Task.Run(() =>
             {
+                Console.WriteLine("Ejecutando Rabbit");
+
                 var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+
                 using (var connection = factory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: "chat",
-                                        durable: false,
-                                        exclusive: false,
-                                        autoDelete: false,
-                                        arguments: null);
+                    // Declarar la cola 'chat' si no existe
+                    channel.QueueDeclare(queue: "chat", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
                     var consumer = new EventingBasicConsumer(channel);
                     consumer.Received += (model, ea) =>
@@ -47,7 +47,10 @@ namespace Server.API
                                         consumer: consumer);
 
                     Console.WriteLine(" [*] Waiting for messages.");
-                    Console.WriteLine(consumer.IsRunning);
+                    Console.WriteLine("Presiona cualquier tecla para detener el consumidor.");
+
+                    // Mantener el consumidor activo hasta que se presione una tecla
+                    Console.ReadKey();
                 }
             });
         }

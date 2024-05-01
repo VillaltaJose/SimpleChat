@@ -22,7 +22,7 @@ namespace Server.API.Hub
             await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Room!);
             _connection[Context.ConnectionId] = userConnection;
 
-            SendMessageToRabbitMQ(userConnection.Room!, new[] { new { Content = $"{userConnection.User} se unió a la sala", User = userConnection.User!, Date = DateTime.Now } });
+            SendMessageToRabbitMQ(userConnection.Room!, new[] { new { Content = $"{userConnection.User} se unió a la sala", Date = DateTime.Now } });
 
             await SendConnectedUser(userConnection.Room!);
         }
@@ -46,7 +46,7 @@ namespace Server.API.Hub
 
             //Clients.Group(userRoomConnection.Room!)
             //    .SendAsync("ReceiveMessage", new[] { new { Content = $"{userRoomConnection.User} abandonó la sala" } });
-            SendMessageToRabbitMQ(userRoomConnection.Room!, new[] { new { Content = $"{userRoomConnection.User} abandonó la sala", User = userRoomConnection.User!, Date = DateTime.Now } });
+            SendMessageToRabbitMQ(userRoomConnection.Room!, new[] { new { Content = $"{userRoomConnection.User} abandonó la sala", Date = DateTime.Now } });
 
             SendConnectedUser(userRoomConnection.Room!);
 			return base.OnDisconnectedAsync(exp);
@@ -63,25 +63,29 @@ namespace Server.API.Hub
 
         private void SendMessageToRabbitMQ(string room, object content)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
+            try
             {
-                channel.QueueDeclare(queue: "chat",
-                                    durable: false,
-                                    exclusive: false,
-                                    autoDelete: false,
-                                    arguments: null);
+                var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
+                using (var connection = factory.CreateConnection())
+                using (var channel = connection.CreateModel())
+                {
+                    // Declarar la cola 'chat' si no existe
+                    channel.QueueDeclare(queue: "chat", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
-                string message = JsonSerializer.Serialize(content);
-                var body = Encoding.UTF8.GetBytes(message);
+                    // Serializar el contenido del mensaje
+                    string message = JsonSerializer.Serialize(content);
+                    var body = Encoding.UTF8.GetBytes(message);
 
-                channel.BasicPublish(exchange: "",
-                                     routingKey: room,
-                                     basicProperties: null,
-                                     body: body);
+                    // Publicar el mensaje en la cola 'chat' usando el nombre de la sala como routingKey
+                    channel.BasicPublish(exchange: "", routingKey: "chat", basicProperties: null, body: body);
 
-                Console.WriteLine($"[x] Sent '{message}'");
+                    Console.WriteLine($"[x] Sent '{message}' to room '{room}'");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending message to RabbitMQ: {ex.Message}");
+                // Manejar la excepción según sea necesario
             }
         }
 
