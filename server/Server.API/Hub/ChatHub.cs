@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.Json;
 using Microsoft.AspNetCore.SignalR;
 using RabbitMQ.Client;
 using Server.API.Entities;
@@ -21,7 +22,7 @@ namespace Server.API.Hub
             await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.Room!);
             _connection[Context.ConnectionId] = userConnection;
 
-            SendMessageToRabbitMQ(userConnection.Room!, userConnection.User!, $"{userConnection.User} se unió a la sala");
+            SendMessageToRabbitMQ(userConnection.Room!, new[] { new { Content = $"{userConnection.User} se unió a la sala", User = userConnection.User!, Date = DateTime.Now } });
 
             await SendConnectedUser(userConnection.Room!);
         }
@@ -30,7 +31,7 @@ namespace Server.API.Hub
 		{
 			if (_connection.TryGetValue(Context.ConnectionId, out UserRoomConnection userRoomConnection))
 			{
-                SendMessageToRabbitMQ(userRoomConnection.Room!, userRoomConnection.User!, message);
+                SendMessageToRabbitMQ(userRoomConnection.Room!, new[] { new { Content = message, User = userRoomConnection.User!, Date = DateTime.Now } });
             }
 		}
 
@@ -43,8 +44,9 @@ namespace Server.API.Hub
 
             _connection.Remove(Context.ConnectionId);
 
-            Clients.Group(userRoomConnection.Room!)
-                .SendAsync("ReceiveMessage", new[] { new { Content = $"{userRoomConnection.User} abandonó la sala" } });
+            //Clients.Group(userRoomConnection.Room!)
+            //    .SendAsync("ReceiveMessage", new[] { new { Content = $"{userRoomConnection.User} abandonó la sala" } });
+            SendMessageToRabbitMQ(userRoomConnection.Room!, new[] { new { Content = $"{userRoomConnection.User} abandonó la sala", User = userRoomConnection.User!, Date = DateTime.Now } });
 
             SendConnectedUser(userRoomConnection.Room!);
 			return base.OnDisconnectedAsync(exp);
@@ -59,19 +61,19 @@ namespace Server.API.Hub
             return Clients.Group(room).SendAsync("ConnectedUser", users);
         }
 
-        private void SendMessageToRabbitMQ(string room, string user, string content)
+        private void SendMessageToRabbitMQ(string room, object content)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" /* o la dirección de tu servidor RabbitMQ */, UserName = "guest", Password = "guest" };
+            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest", Password = "guest" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.QueueDeclare(queue: room,
+                channel.QueueDeclare(queue: "chat",
                                     durable: false,
                                     exclusive: false,
                                     autoDelete: false,
                                     arguments: null);
 
-                string message = $"{user}: {content}";
+                string message = JsonSerializer.Serialize(content);
                 var body = Encoding.UTF8.GetBytes(message);
 
                 channel.BasicPublish(exchange: "",

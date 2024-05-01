@@ -34,3 +34,4 @@
 /Users/josevillalta/dev/Git/Personal/SimpleChat/server/Server.API/obj/Debug/net7.0/Server.API.sourcelink.json
 /Users/josevillalta/dev/Git/Personal/SimpleChat/server/Server.API/bin/Debug/net7.0/Newtonsoft.Json.dll
 /Users/josevillalta/dev/Git/Personal/SimpleChat/server/Server.API/bin/Debug/net7.0/System.Net.WebSockets.WebSocketProtocol.dll
+/Users/josevillalta/dev/Git/Personal/SimpleChat/server/Server.API/bin/Debug/net7.0/RabbitMQ.Client.dll

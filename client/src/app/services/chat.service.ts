@@ -23,7 +23,7 @@ export class ChatService {
 		this.start();
 		this.connection.on("ReceiveMessage", (data: any) => {
 			console.log(data)
-			this.messages = [...this.messages, data];
+			this.messages = [...this.messages, JSON.parse(data)];
 			this.messages$.next(this.messages);
 		});
 

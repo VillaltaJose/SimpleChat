@@ -1,4 +1,5 @@
-﻿using Server.API.Entities;
+﻿using Server.API;
+using Server.API.Entities;
 using Server.API.Hub;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<IDictionary<string, UserRoomConnection>>(opt =>
     new Dictionary<string, UserRoomConnection>());
-
+builder.Services.AddSingleton<RabbitMQConsumer>();
 
 builder.Services.AddCors(options =>
 {
@@ -41,6 +42,9 @@ app.UseEndpoints(endpoint =>
 {
     endpoint.MapHub<ChatHub>("/chat");
 });
+
+var rabbitMQConsumer = app.Services.GetRequiredService<RabbitMQConsumer>();
+rabbitMQConsumer.StartConsuming();
 
 app.MapControllers();
 
