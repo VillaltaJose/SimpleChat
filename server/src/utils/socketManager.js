@@ -49,7 +49,7 @@ function configureSocket(server) {
 			}
 
 			console.log(`${connection.user} disconnected ${connection.room}`);
-			io.to(room).emit('receivedMessage', { room, message: `${connection.user} se ha desconectado de la sala` });
+			io.to(connection.room).emit('receivedMessage', { room, message: `${connection.user} se ha desconectado de la sala` });
 
 			const connectedUsers = Object.values(users).filter((user) => user.room === connection.room)
 				.map(u => u.user);
