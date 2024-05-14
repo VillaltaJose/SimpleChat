@@ -1,25 +1,25 @@
-FROM nginx:latest AS client
+FROM node:latest AS node-builder
+WORKDIR /app/client
+
+COPY client/ /app/client/
+
+RUN npm install --force
+RUN npm run build --prod
 
 WORKDIR /app/server
 
-COPY client/dist/client /usr/share/nginx/html
+COPY server/package*.json /app/server/
 
-COPY client/nginx.conf /etc/nginx/conf.d/default.conf
-
-CMD ["nginx"]
-
-ENV NGINX_PORT=80
-
-FROM node:latest AS server
-
-COPY server/package*.json ./
 RUN npm install
-COPY server/ .
 
-ENV PORT=3001
+COPY server/. /app/server/.
 
-CMD ["node", "src/app.js"]
+FROM nginx:1.17.1-alpine
+RUN apk add --update nodejs npm
+COPY --from=node-builder /app/client/dist/client /usr/share/nginx/html
+COPY --from=node-builder /app/server/ /app/server
 
-# Exponer los puertos
+CMD ["sh", "-c", "node /app/server/src/app.js & nginx -g 'daemon off;'"]
+
 EXPOSE 80
 EXPOSE 3001
