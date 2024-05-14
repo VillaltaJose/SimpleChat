@@ -1,14 +1,14 @@
 FROM node:latest AS node-builder
-WORKDIR /app/client
-
 COPY client/ /app/client/
+
+WORKDIR /app/client
 
 RUN npm install --force
 RUN npm run build --prod
 
-WORKDIR /app/server
-
 COPY server/package*.json /app/server/
+
+WORKDIR /app/server
 
 RUN npm install
 
