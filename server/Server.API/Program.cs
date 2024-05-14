@@ -43,6 +43,8 @@ app.UseEndpoints(endpoint =>
     endpoint.MapHub<ChatHub>("/chat");
 });
 
+app.UseHttpsRedirection();
+
 var rabbitMQConsumer = app.Services.GetRequiredService<RabbitMQConsumer>();
 rabbitMQConsumer.StartConsuming();
 

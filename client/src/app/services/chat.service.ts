@@ -7,8 +7,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ChatService {
 	connection: any = new signalR.HubConnectionBuilder()
-		.withUrl('http://localhost:5264/chat')
-		// .withUrl('http://192.168.180.9:5264/chat')
+		// .withUrl('http://localhost:5264/chat')
+		.withUrl('http://192.168.180.9:5264/chat')
 		.configureLogging(signalR.LogLevel.Information)
 		.build();
 

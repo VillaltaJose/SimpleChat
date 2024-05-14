@@ -44,8 +44,6 @@ namespace Server.API.Hub
 
             _connection.Remove(Context.ConnectionId);
 
-            //Clients.Group(userRoomConnection.Room!)
-            //    .SendAsync("ReceiveMessage", new[] { new { Content = $"{userRoomConnection.User} abandonó la sala" } });
             SendMessageToRabbitMQ(userRoomConnection.Room!, new[] { new { Content = $"{userRoomConnection.User} abandonó la sala", Date = DateTime.Now } });
 
             SendConnectedUser(userRoomConnection.Room!);
@@ -69,14 +67,11 @@ namespace Server.API.Hub
                 using (var connection = factory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
-                    // Declarar la cola 'chat' si no existe
                     channel.QueueDeclare(queue: "chat", durable: false, exclusive: false, autoDelete: false, arguments: null);
 
-                    // Serializar el contenido del mensaje
                     string message = JsonSerializer.Serialize(content);
                     var body = Encoding.UTF8.GetBytes(message);
 
-                    // Publicar el mensaje en la cola 'chat' usando el nombre de la sala como routingKey
                     channel.BasicPublish(exchange: "", routingKey: "chat", basicProperties: null, body: body);
 
                     Console.WriteLine($"[x] Sent '{message}' to room '{room}'");
@@ -85,7 +80,6 @@ namespace Server.API.Hub
             catch (Exception ex)
             {
                 Console.WriteLine($"Error sending message to RabbitMQ: {ex.Message}");
-                // Manejar la excepción según sea necesario
             }
         }
 

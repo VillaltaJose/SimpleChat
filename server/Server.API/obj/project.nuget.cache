@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "JDGEnYtF2WbgUf0n8a524TTsxLlmzP7zSHTWKZ45FI/tNXpQ+UCayk9WGGU7fzCS7U5KPeeNBwirb2VVB3bBng==",
+  "dgSpecHash": "mVB3rNM1iI4m8JePB6LS0Gcx5mFaHmxZOoUwlE6IdwKX1M7GbYUJSue/xnfLeqOv9nF0VcyEM/+F8SWmkg5UgQ==",
   "success": true,
   "projectFilePath": "/Users/josevillalta/dev/Git/Personal/SimpleChat/server/Server.API/Server.API.csproj",
   "expectedPackageFiles": [
@@ -60,10 +60,7 @@
     "/Users/josevillalta/.nuget/packages/system.text.encoding/4.3.0/system.text.encoding.4.3.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/system.text.encodings.web/4.5.0/system.text.encodings.web.4.5.0.nupkg.sha512",
     "/Users/josevillalta/.nuget/packages/system.threading.channels/7.0.0/system.threading.channels.7.0.0.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/microsoft.netcore.app.ref/7.0.15/microsoft.netcore.app.ref.7.0.15.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.15/microsoft.aspnetcore.app.ref.7.0.15.nupkg.sha512",
-    "/Users/josevillalta/.nuget/packages/microsoft.netcore.app.host.osx-arm64/7.0.15/microsoft.netcore.app.host.osx-arm64.7.0.15.nupkg.sha512"
+    "/Users/josevillalta/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }
