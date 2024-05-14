@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TOPICS } from 'src/app/data/topics';
 import { ChatService } from 'src/app/services/chat.service';
@@ -8,7 +8,7 @@ import { ChatService } from 'src/app/services/chat.service';
 	templateUrl: './room-picker.component.html',
 	styleUrls: ['./room-picker.component.scss'],
 })
-export class RoomPickerComponent {
+export class RoomPickerComponent implements OnInit {
 	salas: any[] = TOPICS;
 
 	selectedRoom: string | null = null;
@@ -18,6 +18,12 @@ export class RoomPickerComponent {
 		private router: Router,
 		private chatService: ChatService,
 	) {}
+
+	ngOnInit(): void {
+		try {
+			this.chatService.leaveRoom();
+		} catch {}
+	}
 
 	ingresarSala() {
 		if (!this.selectedRoom) {
@@ -31,8 +37,6 @@ export class RoomPickerComponent {
 		}
 
 		localStorage.setItem('nombre', this.nombre);
-
-		this.chatService.clearMessages();
 		this.router.navigate(['/chat', this.selectedRoom]);
 	}
 }

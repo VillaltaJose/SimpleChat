@@ -1,76 +1,33 @@
 import { Injectable } from '@angular/core';
-import * as signalR from '@microsoft/signalr';
-import { BehaviorSubject } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ChatService {
-	connection: any = new signalR.HubConnectionBuilder()
-		// .withUrl('http://localhost:5264/chat')
-		.withUrl('http://192.168.180.9:5264/chat')
-		.configureLogging(signalR.LogLevel.Information)
-		.build();
+	constructor(private socket: Socket) {}
 
-	messages$ = new BehaviorSubject<any>([]);
-	connectedUsers$ = new BehaviorSubject<string[]>([]);
-	messages: any[] = [];
-	users: string[] = [];
-
-	selectedRoom: any = null;
-
-	constructor() {
-		this.start();
-		this.connection.on("ReceiveMessage", (data: any) => {
-			console.log(data)
-			this.messages = [...this.messages, JSON.parse(data)];
-			this.messages$.next(this.messages);
-		});
-
-		this.connection.on("ConnectedUser", (users: any)=>{
-			this.connectedUsers$.next(users);
-			this.users = users;
-		});
-
-		this.connection.onclose(async () => {
-            console.log('Reintentando conexion');
-            await this.start();
-
-			if (this.selectedRoom) {
-				this.joinRoom(this.selectedRoom.user, this.selectedRoom.room)
-			}
-        });
+	sendMessage(room: string, message: string, user: string) {
+		this.socket.emit('sendMessage', { room, message, user });
 	}
 
-	clearMessages() {
-		this.messages = [];
-		this.users = [];
-
-		this.messages$.next(this.messages);
-		this.connectedUsers$.next(this.messages);
+	joinRoom(room: string, user: string) {
+		this.socket.emit('joinRoom', { room, user });
 	}
 
-	async start() {
-		try {
-			await this.connection.start();
-		} catch (err) {
-			setTimeout(() => this.start(), 3000);
-		}
+	receivedMessage() {
+		return this.socket.fromEvent('receivedMessage');
 	}
 
-	async joinRoom(user: string, room: string) {
-		this.selectedRoom = {
-			user,
-			room
-		}
-		return this.connection.invoke('JoinRoom', {user, room});
+	connectedUsers() {
+		return this.socket.fromEvent('connectedUsers');
 	}
 
-	async sendMessage(message: string) {
-		return this.connection.invoke('SendMessage', message);
+	leaveRoom() {
+		this.socket.disconnect();
 	}
 
-	async leaveChat() {
-		return this.connection.stop();
+	connect() {
+		this.socket.connect();
 	}
 }

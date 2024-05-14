@@ -17,26 +17,26 @@
 
 			<div class="messages-container">
 				<ng-container *ngFor="let m of messages">
-					<ng-container *ngIf="m[0].User == null">
+					<ng-container *ngIf="m.user == null">
 						<div class="anounce">
-							<p>{{ m[0].Content }}</p>
+							<p>{{ m.message }}</p>
 						</div>
 					</ng-container>
 
-					<ng-container *ngIf="m[0].User && m[0].User != user">
+					<ng-container *ngIf="m.user && m.user != user">
 						<div class="message">
 							<div class="content message-other">
-								<img [src]="'https://api.dicebear.com/8.x/thumbs/svg?seed=' + m[0].User">
-								<p>{{ m[0].Content }}</p>
+								<img [src]="'https://api.dicebear.com/8.x/thumbs/svg?seed=' + m.user">
+								<p>{{ m.message }}</p>
 							</div>
 						</div>
 					</ng-container>
 
-					<ng-container *ngIf="m[0].User && m[0].User == user">
+					<ng-container *ngIf="m.user && m.user == user">
 						<div class="message" style="display:flex; justify-content: end;">
 							<div class="content message-me">
-								<p>{{ m[0].Content }}</p>
-								<img [src]="'https://api.dicebear.com/8.x/thumbs/svg?seed=' + m[0].User">
+								<p>{{ m.message }}</p>
+								<img [src]="'https://api.dicebear.com/8.x/thumbs/svg?seed=' + m.user">
 							</div>
 						</div>
 					</ng-container>

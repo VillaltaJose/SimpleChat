@@ -31,19 +31,26 @@ export class ChatComponent implements OnInit {
 	ngOnInit(): void {
 		this.joinRoom();
 
-		this.chatService.messages$.subscribe((res) => {
-			this.messages = res;
+		this.chatService.receivedMessage().subscribe((msg: any) => {
+			this.messages.push(msg);
 		});
 
-		this.chatService.connectedUsers$.subscribe((res) => {
-			this.users = res;
+		this.chatService.connectedUsers()
+		.subscribe((users: any) => {
+			this.users = users;
+		}, (error) => {
+			console.error(error);
 		});
 	}
 
-	async joinRoom() {
+	joinRoom() {
 		try {
-			await this.chatService.joinRoom(this.user, this.roomId)
-		} catch {
+			this.chatService.connect();
+			console.log('Connecting....')
+			console.log(this.roomId, this.user)
+			this.chatService.joinRoom(this.roomId, this.user);
+		} catch (err) {
+			console.error(err);
 			setTimeout(() => this.joinRoom(), 1000)
 		}
 	}
@@ -51,9 +58,7 @@ export class ChatComponent implements OnInit {
 	sendMessage() {
 		if (!this.message) return;
 
-		this.chatService.sendMessage(this.message)
-		.then(() => {
-			this.message = null;
-		});
+		this.chatService.sendMessage(this.roomId, this.message, this.user);
+      	this.message = '';
 	}
 }
