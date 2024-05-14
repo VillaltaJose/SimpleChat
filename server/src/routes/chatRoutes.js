@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+router.get('/consul', (req, res) => {
+	console.log('Consul');
+	res.status(200).json({ success: true, message: 'Server is running' });
+})
+
 router.post('/sendMessage', (req, res) => {
 	const { room, message } = req.body;
 
